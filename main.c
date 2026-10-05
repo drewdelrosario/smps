@@ -16,13 +16,14 @@ void options() {
   printf("\n1. View grade\n");
   printf("2. Add grade\n");
   printf("3. Remove grade\n");
-  printf("4. Exit\n\n");
+  printf("4. Exit\n");
 }
 
 int prompt() {
   int res;
   printf(">> ");
   scanf("%d", &res);
+  while (getchar() != '\n');
   return res;
 }
 
@@ -56,19 +57,24 @@ int main() {
     switch (res)
       {
         case 1:
-          printf("Sample");
+          printf("\nSample\n");
           break;
+
         case 2:
-          printf("Add");
+          printf("\nAdd\n");
           break;
+
         case 3:
-          printf("Remove");
+          printf("\nRemove\n");
           break;
+
         case 4:
           ongoing = false;
-          printf("Byee!\n");
+          printf("\nByee!\n");
           break;
+
         default:
+          printf("\nInvalid argument\n");
           break;
       }
   }
