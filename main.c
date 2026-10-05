@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+char subjects[10][30];
+double scores[10];
+int count = 0;
+
 // Task 1: create a function that displays a greetings and the title of the project (SMPS)
 
 void greet() {
@@ -27,6 +31,17 @@ int prompt() {
   return res;
 }
 
+void view_grades() {
+  if (count == 0) {
+    printf("\nThe list is still empty.\n");
+  }
+
+  for (int i = 0; i < count; i++) {
+    printf("%d. %s - %lf\n", i + 1, subjects[i], scores[i]);
+  }
+  
+}
+
 // Task 3: create a loop to loop the process except the greet function because it should only display once
 
 
@@ -47,6 +62,8 @@ int main() {
 
   greet();
 
+  
+
   bool ongoing = true;
 
   while (ongoing) {
@@ -57,7 +74,7 @@ int main() {
     switch (res)
       {
         case 1:
-          printf("\nSample\n");
+          view_grades();
           break;
 
         case 2:
@@ -70,7 +87,7 @@ int main() {
 
         case 4:
           ongoing = false;
-          printf("\nByee!\n");
+          printf("\nByee!\n\n");
           break;
 
         default:
