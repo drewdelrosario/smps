@@ -1,78 +1,118 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h> // for strcpy to work
+#include <stdlib.h> // for system("cls") to work
 
 char subjects[10][30];
-double scores[10];
+float scores[10];
 int count = 0;
 
-// Task 1: create a function that displays a greetings and the title of the project (SMPS)
 
 void greet() {
-  printf("=================\n");
-  printf("    SMPS     \n");
-  printf("=================\n");
+  printf(" ____   __  __  ____   ____  \n");
+  printf("/ ___| |  \\/  ||  _ \\ / ___| \n");
+  printf("\\___ \\ | |\\/| || |_) |\\___ \\ \n");
+  printf(" ___) || |  | ||  __/  ___) |\n");
+  printf("|____/ |_|  |_||_|    |____/ \n\n");
 }
 
-// Task 2: create a function that prompts the user to enter a command 
-
 void options() {
-  printf("\n1. View grade\n");
+  printf("1. View grades\n");
   printf("2. Add grade\n");
   printf("3. Remove grade\n");
-  printf("4. Get average\n");
-  printf("5. Exit\n");
+  printf("4. Exit\n");
 }
 
 int prompt() {
   int res;
-  printf(">> ");
+  printf("\nsmps> ");
   scanf("%d", &res);
   while (getchar() != '\n');
   return res;
 }
 
+void clear() {
+  system("cls");
+}
+
 void view_grades() {
   if (count == 0) {
-    printf("\nThe list is still empty.\n");
+    printf("\nThe list is still empty.\n\n");
+    return;
   }
+
+  double total = 0;
+
+  printf("\n%-25s %s\n", "Subject", "Grade");
+  printf("%-25s %s\n", "-------", "-----");
 
   for (int i = 0; i < count; i++) {
-    printf("%d. %s - %lf\n", i + 1, subjects[i], scores[i]);
+    printf("%d. %-22s %.2f\n", i + 1, subjects[i], scores[i]);
+    total += scores[i];
   }
-  
+
+  printf("\nAverage: %.2f\n\n", total / count);
 }
 
-void display() {
-  printf("something\n");
+void add_grades() {
+
+   if (count == 10) {
+    printf("\nThe list is already full.\n");
+    return;
+  }
+
+  char subjectName[30];
+
+  printf("Subject name: ");
+  fgets(subjectName, sizeof(subjectName), stdin);
+  subjectName[strcspn(subjectName, "\n")] = '\0';
+
+  float grade;
+
+  printf("Subject score: ");
+  scanf("%f", &grade);
+
+  strcpy(subjects[count], subjectName);
+  scores[count] = grade;
+
+  count++;
+
+  printf("\nAdded successfully!\n");
+
+  view_grades();
+
 }
 
-void add(int x, int y) {
-  int result = x + y;
-  printf("%d", result);
+void remove_grade() {
+  int n;
+  view_grades();
+  if (count == 0) return;
+
+  printf("Enter number to remove: ");
+  scanf("%d", &n);
+  while (getchar() != '\n');
+
+  if (n < 1 || n > count) {
+    printf("Invalid number.\n");
+    return;
+  }
+
+  // shift everything after it up by one
+  for (int i = n - 1; i < count - 1; i++) {
+    for (int j = 0; j < 30; j++) subjects[i][j] = subjects[i + 1][j];
+    scores[i] = scores[i + 1];
+  }
+  count--;
+
+  printf("\nRemoved successfully!\n");
+
+  view_grades();
 }
-
-// Task 3: create a loop to loop the process except the greet function because it should only display once
-
-
-/* Task 4: create handler functions for specific commands
-    commands:
-      - show: show all availble commands
-      - get average
-      - get grades
-      - set grade [subject] [score]
-      - summarize
-
-*/ 
-
-// Task 5: catch unidentified commands entered by the user
 
 int main() {
-  // execution
 
   greet();
-
-  
 
   bool ongoing = true;
 
@@ -84,28 +124,28 @@ int main() {
     switch (res)
       {
         case 1:
+          clear();
           view_grades();
           break;
 
         case 2:
-          printf("\nAdd\n");
+          clear();
+          add_grades();
           break;
 
         case 3:
-          printf("\nRemove\n");
+          clear();
+          remove_grade();
           break;
 
         case 4:
-          printf("\nGet average\n");
-          break;
-
-        case 5:
           ongoing = false;
           printf("\nByee!\n\n");
           break;
 
         default:
-          printf("\nInvalid argument\n");
+          clear();
+          printf("\nInvalid input\n");
           break;
       }
   }
