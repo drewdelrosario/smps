@@ -38,7 +38,7 @@ void clear() {
 
 void view_grades() {
   if (count == 0) {
-    printf("\nThe list is still empty.\n\n");
+    printf("\nThe list is empty.\n\n");
     return;
   }
 
@@ -64,7 +64,7 @@ void add_grades() {
 
   char subjectName[30];
 
-  printf("Subject name: ");
+  printf("\nSubject name: ");
   fgets(subjectName, sizeof(subjectName), stdin);
   subjectName[strcspn(subjectName, "\n")] = '\0';
 
@@ -98,9 +98,10 @@ void remove_grade() {
     return;
   }
 
-  // shift everything after it up by one
   for (int i = n - 1; i < count - 1; i++) {
-    for (int j = 0; j < 30; j++) subjects[i][j] = subjects[i + 1][j];
+    for (int j = 0; j < 30; j++) {
+      subjects[i][j] = subjects[i + 1][j];
+    }
     scores[i] = scores[i + 1];
   }
   count--;
@@ -124,17 +125,17 @@ int main() {
     switch (res)
       {
         case 1:
-          clear();
+          // clear();
           view_grades();
           break;
 
         case 2:
-          clear();
+          // clear();
           add_grades();
           break;
 
         case 3:
-          clear();
+          // clear();
           remove_grade();
           break;
 
@@ -144,7 +145,7 @@ int main() {
           break;
 
         default:
-          clear();
+          // clear();
           printf("\nInvalid input\n");
           break;
       }
