@@ -10,7 +10,7 @@ int count = 0;
 
 void greet() {
   printf("=================\n");
-  printf("    ESEMPIES     \n");
+  printf("    SMPS     \n");
   printf("=================\n");
 }
 
@@ -20,7 +20,8 @@ void options() {
   printf("\n1. View grade\n");
   printf("2. Add grade\n");
   printf("3. Remove grade\n");
-  printf("4. Exit\n");
+  printf("4. Get average\n");
+  printf("5. Exit\n");
 }
 
 int prompt() {
@@ -40,6 +41,15 @@ void view_grades() {
     printf("%d. %s - %lf\n", i + 1, subjects[i], scores[i]);
   }
   
+}
+
+void display() {
+  printf("something\n");
+}
+
+void add(int x, int y) {
+  int result = x + y;
+  printf("%d", result);
 }
 
 // Task 3: create a loop to loop the process except the greet function because it should only display once
@@ -86,6 +96,10 @@ int main() {
           break;
 
         case 4:
+          printf("\nGet average\n");
+          break;
+
+        case 5:
           ongoing = false;
           printf("\nByee!\n\n");
           break;
@@ -95,5 +109,4 @@ int main() {
           break;
       }
   }
-
 }
